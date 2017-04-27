@@ -23,6 +23,30 @@ namespace checkers
         public MainWindow()
         {
             InitializeComponent();
+
+            for(int i = 0; i < 8; i++)
+            {   
+                for(int j = 0; j < 8; j++)
+                {
+                    Rectangle boardField = new Rectangle();
+                    SolidColorBrush brush = new SolidColorBrush();
+
+                    if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0))
+                    {
+                        brush.Color = Colors.White;
+                        boardField.Fill = brush;
+                    }
+                    else
+                    {
+                        brush.Color = Colors.Gray;
+                        boardField.Fill = brush;
+                    }
+
+                    board.Children.Add(boardField);
+                    Grid.SetRow(boardField, i);
+                    Grid.SetColumn(boardField, j);
+                }
+            }
         }
     }
 }
