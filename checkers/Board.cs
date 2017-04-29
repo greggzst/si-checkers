@@ -33,6 +33,10 @@ namespace checkers
 
         public int GetPiece(int row, int col)
         {
+            //return -1 if out of board
+            if ((row > 7) || (row < 0) || (col > 7) || (col < 0))
+                return -1;
+
             return board[row, col];
         }
     }
