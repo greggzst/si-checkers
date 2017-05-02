@@ -23,23 +23,25 @@ namespace checkers
         public MainWindow()
         {
             InitializeComponent();
+            buildBoard();
+            
+        }
 
-            for(int i = 0; i < 8; i++)
-            {   
-                for(int j = 0; j < 8; j++)
+        private void buildBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
                 {
-                    Rectangle boardField = new Rectangle();
-                    SolidColorBrush brush = new SolidColorBrush();
+                    StackPanel boardField = new StackPanel();
 
                     if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0))
                     {
-                        brush.Color = Colors.White;
-                        boardField.Fill = brush;
+                        boardField.Background = Brushes.White;
                     }
                     else
                     {
-                        brush.Color = Colors.Gray;
-                        boardField.Fill = brush;
+                        boardField.Background = Brushes.Gray;
                     }
 
                     board.Children.Add(boardField);
