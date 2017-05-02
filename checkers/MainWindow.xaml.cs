@@ -50,5 +50,18 @@ namespace checkers
                 }
             }
         }
+
+        private StackPanel getBoardField(Grid board, int row, int col)
+        {
+            for (int i = 0; i < board.Children.Count; i++)
+            {
+                StackPanel field = (StackPanel) board.Children[i];
+                if (Grid.GetRow(field) == row && Grid.GetColumn(field) == col)
+                    return field;
+            }
+            return null;
+        }
+
+        
     }
 }
