@@ -97,10 +97,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="images\black.png" />
-    <Resource Include="images\black_king.png" />
-    <Resource Include="images\red.png" />
-    <Resource Include="images\red_king.png" />
+    <Resource Include="images\black.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\black_king.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\red_king.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
