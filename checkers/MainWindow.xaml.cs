@@ -156,6 +156,45 @@ namespace checkers
             }
         }
 
+        private Board getCurrentBoard()
+        {
+            Board gameBoard = new Board();
+            for(int row = 0; row < 8; row++)
+            {
+                for(int col = 0; col < 8; col++)
+                {
+                    StackPanel boardField = getBoardField(board,row, col);
+                    if(boardField.Children.Count > 0)
+                    {
+                        Button button = (Button)boardField.Children[0];
+                        if(button.Name.Contains("Red"))
+                        {
+                            if (button.Name.Contains("King"))
+                                gameBoard.AssignPiece(row, col, Board.FieldState.RED_KING);
+                            else
+                                gameBoard.AssignPiece(row, col, Board.FieldState.RED);
+                        }
+                        else if (button.Name.Contains("Black"))
+                        {
+                            if (button.Name.Contains("King"))
+                                gameBoard.AssignPiece(row, col, Board.FieldState.BLACK_KING);
+                            else
+                                gameBoard.AssignPiece(row, col, Board.FieldState.BLACK);
+                        }
+                        else
+                        {
+                            gameBoard.AssignPiece(row, col, Board.FieldState.EMPTY);
+                        }
+                    }
+                    else
+                    {
+                        gameBoard.AssignPiece(row, col, Board.FieldState.INVALID);
+                    }
+                }
+            }
+            return gameBoard;
+        }
+
         public void piece_click(Object sender, RoutedEventArgs e)
         {
         }
