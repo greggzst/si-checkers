@@ -12,9 +12,9 @@ namespace checkers
         {
             INVALID,
             EMPTY,
-            WHITE,
+            RED,
             BLACK,
-            WHITE_KING,
+            RED_KING,
             BLACK_KING
         }
         private FieldState[,] board = new FieldState[8,8];
