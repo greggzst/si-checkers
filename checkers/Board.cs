@@ -13,7 +13,16 @@ namespace checkers
     // 4 - black king
     class Board
     {
-        private int[,] board = new int[8,8];
+        public enum FieldState
+        {
+            INVALID = -1,
+            EMPTY = 0,
+            WHITE = 1,
+            BLACK = 2,
+            WHITE_KING = 3,
+            BLACK_KING = 4
+        }
+        private FieldState[,] board = new FieldState[8,8];
 
         public Board()
         {
@@ -21,21 +30,21 @@ namespace checkers
             {
                 for(int col = 0; col < 8; col++)
                 {
-                    board[row,col] = 0;
+                    board[row,col] = FieldState.EMPTY;
                 }
             }
         }
 
-        public void AssignPiece(int row, int col, int piece)
+        public void AssignPiece(int row, int col, FieldState piece)
         {
             board[row, col] = piece;
         }
 
-        public int GetPiece(int row, int col)
+        public FieldState GetPiece(int row, int col)
         {
             //return -1 if out of board
             if ((row > 7) || (row < 0) || (col > 7) || (col < 0))
-                return -1;
+                return FieldState.INVALID;
 
             return board[row, col];
         }
