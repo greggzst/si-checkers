@@ -6,21 +6,16 @@ using System.Threading.Tasks;
 
 namespace checkers
 {
-    // 0 - empty field
-    // 1 - white
-    // 2 - black
-    // 3 - white king
-    // 4 - black king
     class Board
     {
         public enum FieldState
         {
-            INVALID = -1,
-            EMPTY = 0,
-            WHITE = 1,
-            BLACK = 2,
-            WHITE_KING = 3,
-            BLACK_KING = 4
+            INVALID,
+            EMPTY,
+            WHITE,
+            BLACK,
+            WHITE_KING,
+            BLACK_KING
         }
         private FieldState[,] board = new FieldState[8,8];
 
