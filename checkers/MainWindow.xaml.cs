@@ -169,15 +169,15 @@ namespace checkers
                         Button button = (Button)boardField.Children[0];
                         if(button.Name.Contains("Red"))
                         {
-                            if (button.Name.Contains("King"))
-                                gameBoard.AssignPiece(row, col, Board.FieldState.RED_KING);
+                            if (button.Name.Contains("Lady"))
+                                gameBoard.AssignPiece(row, col, Board.FieldState.RED_LADY);
                             else
                                 gameBoard.AssignPiece(row, col, Board.FieldState.RED);
                         }
                         else if (button.Name.Contains("Black"))
                         {
-                            if (button.Name.Contains("King"))
-                                gameBoard.AssignPiece(row, col, Board.FieldState.BLACK_KING);
+                            if (button.Name.Contains("Lady"))
+                                gameBoard.AssignPiece(row, col, Board.FieldState.BLACK_LADY);
                             else
                                 gameBoard.AssignPiece(row, col, Board.FieldState.BLACK);
                         }

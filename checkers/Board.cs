@@ -14,8 +14,8 @@ namespace checkers
             EMPTY,
             RED,
             BLACK,
-            RED_KING,
-            BLACK_KING
+            RED_LADY,
+            BLACK_LADY
         }
         private FieldState[,] board = new FieldState[8,8];
 
