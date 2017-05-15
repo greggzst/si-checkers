@@ -88,6 +88,16 @@ namespace checkers
             blackLadyCount++;
         }
 
+        public int getRedWeightedScore()
+        {
+            return redCount - redLadyCount + (3 * redLadyCount);
+        }
+
+        public int getBlackWeightedScore()
+        {
+            return blackCount - blackLadyCount + (3 * blackLadyCount);
+        }
+
         public List<Move> getJumps(string player)
         {
             List<Move> jumps = new List<Move>();
@@ -190,6 +200,142 @@ namespace checkers
             return jumps;
         }
 
+        public List<Move> getJumpsFromLocation(string player, int row, int col)
+        {
+            List<Move> jumps = new List<Move>();
+
+            FieldState chosenPiece = GetPiece(row, col);
+
+            // Get red jumps
+            if (player.Equals("red"))
+            {
+                if (chosenPiece == FieldState.RED || chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.BLACK ||
+                            GetPiece(row + 1, col + 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row + 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row + 1, col - 1) == FieldState.BLACK ||
+                            GetPiece(row + 1, col - 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row + 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col - 2));
+                        }
+                    }
+                }
+
+                // Get lady jumps - lady can jump backward
+                if (chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.BLACK ||
+                            GetPiece(row - 1, col + 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row - 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row - 1, col - 1) == FieldState.BLACK ||
+                          GetPiece(row - 1, col - 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row - 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col - 2));
+                        }
+                    }
+                }
+            }
+            else if (player.Equals("black"))
+            { // Get black jumps
+                if (chosenPiece == FieldState.BLACK || chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.RED ||
+                            GetPiece(row - 1, col + 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row - 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row - 1, col - 1) == FieldState.RED ||
+                            GetPiece(row - 1, col - 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row - 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col - 2));
+                        }
+                    }
+                }
+
+                // Get lady jumps - lady can jump backward
+                if (chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.RED ||
+                            GetPiece(row + 1, col + 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row + 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row + 1, col - 1) == FieldState.RED ||
+                            GetPiece(row + 1, col - 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row + 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col - 2));
+                        }
+                    }
+                }
+            }
+
+            return jumps;
+        }
+
+        public List<Move> getAllLegalMovesForColor(string colour)
+        {
+            List<Move> moves = new List<Move>();
+            int count = 0;
+
+            // Loop through board and get moves at each location
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState currPosition = GetPiece(row, col);
+                    if (currPosition.ToString().ToLower().Equals(colour))
+                    {
+                        moves.AddRange(getLegalMovesForPlayerAtPosition(colour, row, col));
+                        count++;
+                    }
+
+                    // Get king moves
+                    if (colour.Equals("red") && currPosition == FieldState.RED_LADY)
+                    {
+                        moves.AddRange(getLegalMovesForPlayerAtPosition(colour, row, col));
+                        count++;
+                    }
+                    else if (colour.Equals("black") && currPosition == FieldState.BLACK_LADY)
+                    {
+                        moves.AddRange(getLegalMovesForPlayerAtPosition(colour, row, col));
+                        count++;
+                    }
+
+                    // Stop if all the pieces of the color have been found
+                    if (count == 12)
+                    {
+                        return moves;
+                    }
+                }
+            }
+            return moves;
+        }
+
         public List<Move> getLegalMovesForPlayerAtPosition(string player, int row, int col)
         {
             FieldState chosenPiece = GetPiece(row, col);
@@ -234,9 +380,33 @@ namespace checkers
             }
 
             // Add jumps
-            List<Move> jumps = getJumps(player);
+            List<Move> jumps = getJumpsFromLocation(player,row,col);
             moves.AddRange(jumps);
             return moves;
+        }
+
+        public bool makeMove(Move move, string player)
+        {
+            FieldState tmp = GetPiece(move.CurrentRow, move.CurrentCol);
+            AssignPiece(move.CurrentRow, move.CurrentCol, FieldState.EMPTY);
+
+            if (player.Equals("red") && move.RowToBeMovedTo == 7)
+            {
+                AssignPiece(move.RowToBeMovedTo,move.ColToBeMovedTo, FieldState.RED_LADY);
+                increaseRedLadyCount();
+                return true;
+            }
+            else if (player.Equals("black") && move.RowToBeMovedTo == 0)
+            {
+                AssignPiece(move.RowToBeMovedTo, move.ColToBeMovedTo, FieldState.BLACK_LADY);
+                increaseBlackLadyCount();
+                return true;
+            }
+            else
+            {
+                AssignPiece(move.RowToBeMovedTo, move.ColToBeMovedTo, tmp);
+                return false;
+            }
         }
     }
 }
