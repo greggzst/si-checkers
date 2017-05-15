@@ -18,6 +18,10 @@ namespace checkers
             BLACK_LADY
         }
         private FieldState[,] board = new FieldState[8,8];
+        private int redCount;
+        private int blackCount;
+        private int blackLadyCount;
+        private int redLadyCount;
 
         public Board()
         {
@@ -42,6 +46,46 @@ namespace checkers
                 return FieldState.INVALID;
 
             return board[row, col];
+        }
+
+        public int getRedCount()
+        {
+            return redCount;
+        }
+
+        public void increaseRedCount(int i)
+        {
+            redCount += i;
+        }
+
+        public int getBlackCount()
+        {
+            return blackCount;
+        }
+
+        public void increaseBlackCount(int i)
+        {
+            blackCount += i;
+        }
+
+        public int getRedLadyCount()
+        {
+            return redLadyCount;
+        }
+
+        public void increaseRedLadyCount(int i)
+        {
+            redLadyCount += i;
+        }
+
+        public int getBlackLadyCount()
+        {
+            return blackLadyCount;
+        }
+
+        public void increaseBlackLadyCount(int i)
+        {
+            blackLadyCount += i;
         }
     }
 }
