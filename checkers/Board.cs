@@ -53,9 +53,9 @@ namespace checkers
             return redCount;
         }
 
-        public void increaseRedCount(int i)
+        public void increaseRedCount()
         {
-            redCount += i;
+            redCount++;
         }
 
         public int getBlackCount()
@@ -63,9 +63,9 @@ namespace checkers
             return blackCount;
         }
 
-        public void increaseBlackCount(int i)
+        public void increaseBlackCount()
         {
-            blackCount += i;
+            blackCount++;
         }
 
         public int getRedLadyCount()
@@ -73,9 +73,9 @@ namespace checkers
             return redLadyCount;
         }
 
-        public void increaseRedLadyCount(int i)
+        public void increaseRedLadyCount()
         {
-            redLadyCount += i;
+            redLadyCount++;
         }
 
         public int getBlackLadyCount()
@@ -83,9 +83,9 @@ namespace checkers
             return blackLadyCount;
         }
 
-        public void increaseBlackLadyCount(int i)
+        public void increaseBlackLadyCount()
         {
-            blackLadyCount += i;
+            blackLadyCount++;
         }
     }
 }
