@@ -20,9 +20,16 @@ namespace checkers
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string turn;
+        private Move currentMove;
+        private string winner;
+
+
         public MainWindow()
         {
             InitializeComponent();
+            turn = "red";
+            winner = null;
             buildBoard();
 
         }
@@ -170,16 +177,28 @@ namespace checkers
                         if(button.Name.Contains("Red"))
                         {
                             if (button.Name.Contains("Lady"))
+                            { 
                                 gameBoard.AssignPiece(row, col, Board.FieldState.RED_LADY);
+                                gameBoard.increaseRedLadyCount();
+                            }
                             else
+                            {
                                 gameBoard.AssignPiece(row, col, Board.FieldState.RED);
+                                gameBoard.increaseRedCount();
+                            }
                         }
                         else if (button.Name.Contains("Black"))
                         {
                             if (button.Name.Contains("Lady"))
+                            {
                                 gameBoard.AssignPiece(row, col, Board.FieldState.BLACK_LADY);
+                                gameBoard.increaseBlackLadyCount();
+                            }
                             else
+                            {
                                 gameBoard.AssignPiece(row, col, Board.FieldState.BLACK);
+                                gameBoard.increaseBlackCount();
+                            }
                         }
                         else
                         {
