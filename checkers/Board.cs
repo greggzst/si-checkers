@@ -182,5 +182,54 @@ namespace checkers
             }
             return jumps;
         }
+
+        public List<Move> getLegalMovesForPlayerAtPosition(string player, int row, int col)
+        {
+            FieldState chosenPiece = GetPiece(row, col);
+            List<Move> moves = new List<Move>();
+
+            // Get red moves
+            if (player.Equals("red"))
+            {
+                if (chosenPiece == FieldState.RED || chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row + 1, col + 1));
+                    if (GetPiece(row + 1, col - 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row + 1, col - 1));
+
+                }
+                if (chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row - 1, col + 1));
+                    if (GetPiece(row - 1, col - 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row - 1, col - 1));
+
+                }
+            }
+            else if (player.Equals("black"))
+            { // Get black moves
+                if (chosenPiece == FieldState.BLACK || chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row - 1, col + 1));
+                    if (GetPiece(row - 1, col - 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row - 1, col - 1));
+                }
+                if (chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row + 1, col + 1));
+                    if (GetPiece(row + 1, col - 1) == FieldState.EMPTY)
+                        moves.Add(new Move(row, col, row + 1, col - 1));
+                }
+            }
+
+            // Add jumps
+            List<Move> jumps = getJumps(player,row, col);
+            moves.AddRange(jumps);
+            return moves;
+        }
     }
 }
