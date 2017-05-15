@@ -87,5 +87,100 @@ namespace checkers
         {
             blackLadyCount++;
         }
+
+        public List<Move> getJumps(string player, int row, int col)
+        {
+            List<Move> jumps = new List<Move>();
+            FieldState chosenPiece = GetPiece(row, col);
+
+            // Get red jumps
+            if (player.Equals("red"))
+            {
+                if (chosenPiece == FieldState.RED || chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.BLACK ||
+                            GetPiece(row + 1, col + 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row + 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row + 1, col - 1) == FieldState.BLACK ||
+                            GetPiece(row + 1, col - 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row + 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col - 2));
+                        }
+                    }
+                }
+
+                // Get lady jumps - lady can jump backward
+                if (chosenPiece == FieldState.RED_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.BLACK ||
+                            GetPiece(row - 1, col + 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row - 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row - 1, col - 1) == FieldState.BLACK ||
+                          GetPiece(row - 1, col - 1) == FieldState.BLACK_LADY)
+                    {
+                        if (GetPiece(row - 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col - 2));
+                        }
+                    }
+                }
+            }
+            else if (player.Equals("black"))
+            { // Get black jumps
+                if (chosenPiece == FieldState.BLACK || chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row - 1, col + 1) == FieldState.RED ||
+                            GetPiece(row - 1, col + 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row - 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row - 1, col - 1) == FieldState.RED ||
+                            GetPiece(row - 1, col - 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row - 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row - 2, col - 2));
+                        }
+                    }
+                }
+
+                // Get lady jumps - lady can jump backward
+                if (chosenPiece == FieldState.BLACK_LADY)
+                {
+                    if (GetPiece(row + 1, col + 1) == FieldState.RED ||
+                            GetPiece(row + 1, col + 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row + 2, col + 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col + 2));
+                        }
+                    }
+                    if (GetPiece(row + 1, col - 1) == FieldState.RED ||
+                            GetPiece(row + 1, col - 1) == FieldState.RED_LADY)
+                    {
+                        if (GetPiece(row + 2, col - 2) == FieldState.EMPTY)
+                        {
+                            jumps.Add(new Move(row, col, row + 2, col - 2));
+                        }
+                    }
+                }
+            }
+            return jumps;
+        }
     }
 }
