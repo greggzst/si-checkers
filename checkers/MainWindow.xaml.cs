@@ -29,6 +29,7 @@ namespace checkers
         {
             InitializeComponent();
             turn = "red";
+            currentMove = null;
             winner = null;
             buildBoard();
 
@@ -216,6 +217,330 @@ namespace checkers
 
         public void piece_click(Object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
+            StackPanel stackPanel = (StackPanel)button.Parent;
+            int row = Grid.GetRow(stackPanel);
+            int col = Grid.GetColumn(stackPanel);
+
+            if (currentMove == null)
+            {
+                currentMove = new Move();
+            }
+
+            if(currentMove.CurrentCol == -1 && currentMove.CurrentRow == -1)
+            {
+                currentMove.CurrentRow = row;
+                currentMove.CurrentCol = col;
+                stackPanel.Background = Brushes.Green;
+            }
+            else
+            {
+                currentMove.RowToBeMovedTo = row;
+                currentMove.ColToBeMovedTo = col;
+                stackPanel.Background = Brushes.Green;
+            }
+
+            if((currentMove.CurrentCol != -1 && currentMove.CurrentRow != -1) && 
+                (currentMove.ColToBeMovedTo != -1 && currentMove.RowToBeMovedTo != -1))
+            {
+                if(checkMove())
+                {
+                    makeMove();
+                }
+            }
+        }
+
+        private Boolean checkMove()
+        {
+            StackPanel stackPanel1 = getBoardField(board, currentMove.CurrentRow, currentMove.CurrentCol);
+            StackPanel stackPanel2 = getBoardField(board, currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
+            Button button1 = (Button)stackPanel1.Children[0];
+            Button button2 = (Button)stackPanel2.Children[0];
+            stackPanel1.Background = Brushes.Gray;
+            stackPanel2.Background = Brushes.Gray;
+
+            if ((turn == "black") && (button1.Name.Contains("Red")))
+            {
+                currentMove.CurrentRow = -1;
+                currentMove.CurrentCol = -1;
+                currentMove.RowToBeMovedTo = -1;
+                currentMove.ColToBeMovedTo = -1;
+                displayError("It is blacks turn.");
+                return false;
+            }
+            if ((turn == "red") && (button1.Name.Contains("Black")))
+            {
+                currentMove.CurrentRow = -1;
+                currentMove.CurrentCol = -1;
+                currentMove.RowToBeMovedTo = -1;
+                currentMove.ColToBeMovedTo = -1;
+                displayError("It is reds turn.");
+                return false;
+            }
+            if (button1.Equals(button2))
+            {
+                currentMove.CurrentRow = -1;
+                currentMove.CurrentCol = -1;
+                currentMove.RowToBeMovedTo = -1;
+                currentMove.ColToBeMovedTo = -1;
+                return false;
+            }
+            if (button1.Name.Contains("Black"))
+            {
+                return checkMoveBlack(button1, button2);
+            }
+            else if (button1.Name.Contains("Red"))
+            {
+                return checkMoveRed(button1, button2);
+            }
+            else
+            {
+                currentMove.CurrentRow = -1;
+                currentMove.CurrentCol = -1;
+                currentMove.RowToBeMovedTo = -1;
+                currentMove.ColToBeMovedTo = -1;
+                return false;
+            }
+        }
+
+        private bool checkMoveRed(Button button1, Button button2)
+        {
+            Board currentBoard = getCurrentBoard();
+            List<Move> jumpMoves = currentBoard.getJumps("red");
+
+            if (jumpMoves.Count > 0)
+            {
+                bool invalid = true;
+                foreach (Move move in jumpMoves)
+                {
+                    if (currentMove.Equals(move))
+                        invalid = false;
+                }
+                if (invalid)
+                {
+                    displayError("Jump must be taken");
+                    currentMove.CurrentRow = -1;
+                    currentMove.CurrentCol = -1;
+                    currentMove.RowToBeMovedTo = -1;
+                    currentMove.ColToBeMovedTo = -1;
+                    return false;
+                }
+            }
+
+            if (button1.Name.Contains("Red"))
+            {
+                if (button1.Name.Contains("Lady"))
+                {
+                    if ((currentMove.isAdjacent("lady")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                        return true;
+                    Tuple<int,int> middlePiece = currentMove.checkJump("lady");
+                    if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        StackPanel middleStackPanel = getBoardField(board, middlePiece.Item1, middlePiece.Item2);
+                        Button middleButton = (Button)middleStackPanel.Children[0];
+                        if (middleButton.Name.Contains("Black"))
+                        {
+                            board.Children.Remove(middleStackPanel);
+                            addGrayButton(middlePiece);
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((currentMove.isAdjacent("red")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                        return true;
+                    Tuple<int, int> middlePiece = currentMove.checkJump("red");
+                    if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        StackPanel middleStackPanel = getBoardField(board, middlePiece.Item1, middlePiece.Item2);
+                        Button middleButton = (Button)middleStackPanel.Children[0];
+                        if (middleButton.Name.Contains("Black"))
+                        {
+                            board.Children.Remove(middleStackPanel);
+                            addGrayButton(middlePiece);
+                            return true;
+                        }
+                    }
+                }
+            }
+            currentMove = null;
+            displayError("Invalid Move. Try Again.");
+            return false;
+        }
+
+        private bool checkMoveBlack(Button button1, Button button2)
+        {
+            Board currentBoard = getCurrentBoard();
+            List<Move> jumpMoves = currentBoard.getJumps("black");
+
+            if (jumpMoves.Count > 0)
+            {
+                bool invalid = true;
+                foreach (Move move in jumpMoves)
+                {
+                    if (currentMove.Equals(move))
+                        invalid = false;
+                }
+                if (invalid)
+                {
+                    displayError("Jump must be taken");
+                    currentMove.CurrentRow = -1;
+                    currentMove.CurrentCol = -1;
+                    currentMove.RowToBeMovedTo = -1;
+                    currentMove.ColToBeMovedTo = -1;
+                    Console.WriteLine("False");
+                    return false;
+                }
+            }
+
+            if (button1.Name.Contains("Black"))
+            {
+                if (button1.Name.Contains("Lady"))
+                {
+                    if ((currentMove.isAdjacent("lady")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                        return true;
+                    Tuple<int, int> middlePiece = currentMove.checkJump("lady");
+                    if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        StackPanel middleStackPanel = getBoardField(board, middlePiece.Item1, middlePiece.Item2);
+                        Button middleButton = (Button)middleStackPanel.Children[0];
+                        if (middleButton.Name.Contains("Red"))
+                        {
+                            board.Children.Remove(middleStackPanel);
+                            addGrayButton(middlePiece);
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    if ((currentMove.isAdjacent("black")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                        return true;
+                    Tuple<int, int> middlePiece = currentMove.checkJump("black");
+                    if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        StackPanel middleStackPanel = getBoardField(board, middlePiece.Item1, middlePiece.Item2);
+                        Button middleButton = (Button)middleStackPanel.Children[0];
+                        if (middleButton.Name.Contains("Red"))
+                        {
+                            board.Children.Remove(middleStackPanel);
+                            addGrayButton(middlePiece);
+                            return true;
+                        }
+                    }
+                }
+            }
+            currentMove = null;
+            displayError("Invalid Move. Try Again.");
+            return false;
+        }
+
+        private void addGrayButton(Tuple<int,int> middleMove)
+        {
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Background = Brushes.Gray;
+            Button button = new Button();
+            button.Click += new RoutedEventHandler(piece_click);
+            button.Height = 60;
+            button.Width = 60;
+            button.HorizontalAlignment = HorizontalAlignment.Center;
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Background = Brushes.Gray;
+            button.Name = "button" + middleMove.Item1 + middleMove.Item2;
+            stackPanel.Children.Add(button);
+            Grid.SetColumn(stackPanel, middleMove.Item2);
+            Grid.SetRow(stackPanel, middleMove.Item1);
+            board.Children.Add(stackPanel);
+        }
+
+        private void makeMove()
+        {
+            if ((currentMove.CurrentCol != -1 && currentMove.CurrentRow != -1) &&
+                (currentMove.ColToBeMovedTo != -1 && currentMove.RowToBeMovedTo != -1))
+            {
+                StackPanel stackPanel1 = getBoardField(board, currentMove.CurrentRow, currentMove.CurrentCol);
+                StackPanel stackPanel2 = getBoardField(board, currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
+                board.Children.Remove(stackPanel1);
+                board.Children.Remove(stackPanel2);
+                Grid.SetRow(stackPanel1, currentMove.RowToBeMovedTo);
+                Grid.SetColumn(stackPanel1, currentMove.ColToBeMovedTo);
+                board.Children.Add(stackPanel1);
+                Grid.SetRow(stackPanel2, currentMove.CurrentRow);
+                Grid.SetColumn(stackPanel2, currentMove.CurrentCol);
+                board.Children.Add(stackPanel2);
+                checkLady(currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
+                currentMove = null;
+                if (turn == "black")
+                {
+                    this.Title = "Checkers! Reds turn!";
+                    turn = "red";
+                }
+                else if (turn == "red")
+                {
+                    this.Title = "Checkers! Blacks turn!";
+                    turn = "black";
+                }
+                checkWin();
+            }
+        }
+
+        private void checkWin()
+        {
+            int totalBlack = 0, totalRed = 0;
+            for (int r = 0; r < 8; r++)
+            {
+                for (int c = 0; c < 8; c++)
+                {
+                    StackPanel stackPanel = getBoardField(board, r, c);
+                    if (stackPanel.Children.Count > 0)
+                    {
+                        Button button = (Button)stackPanel.Children[0];
+                        if (button.Name.Contains("Red"))
+                            totalRed++;
+                        if (button.Name.Contains("Black"))
+                            totalBlack++;
+                    }
+                }
+            }
+            if (totalBlack == 0)
+                winner = "red";
+            if (totalRed == 0)
+                winner = "black";
+        }
+
+        private void checkLady(int row, int col)
+        {
+            StackPanel stackPanel = getBoardField(board, row, col);
+            if (stackPanel.Children.Count > 0)
+            {
+                Button button = (Button)stackPanel.Children[0];
+                var redBrush = new ImageBrush();
+                redBrush.ImageSource = new BitmapImage(new Uri("images/red_king.png", UriKind.Relative));
+                var blackBrush = new ImageBrush();
+                blackBrush.ImageSource = new BitmapImage(new Uri("images/black_king.png", UriKind.Relative));
+                if ((button.Name.Contains("Black")) && (!button.Name.Contains("Lady")))
+                {
+                    if (row == 0)
+                    {
+                        button.Name = "button" + "Black" + "Lady" + row + col;
+                        button.Background = blackBrush;
+                    }
+                }
+                else if ((button.Name.Contains("Red")) && (!button.Name.Contains("Lady")))
+                {
+                    if (row == 7)
+                    {
+                        button.Name = "button" + "Red" + "Lady" + row + col;
+                        button.Background = redBrush;
+                    }
+                }
+            }
+        }
+
+        private void displayError(string error)
+        {
+            MessageBox.Show(error, "Invalid Move", MessageBoxButton.OK);
         }
     }
 }
