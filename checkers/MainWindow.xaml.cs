@@ -21,6 +21,7 @@ namespace checkers
     public partial class MainWindow : Window
     {
         private string turn;
+        private CheckersAI ai;
         private Move currentMove;
         private string winner;
 
@@ -28,7 +29,8 @@ namespace checkers
         public MainWindow()
         {
             InitializeComponent();
-            turn = "red";
+            turn = "black";
+            ai = new CheckersAI("red");
             currentMove = null;
             winner = null;
             buildBoard();
@@ -242,6 +244,19 @@ namespace checkers
 
             if((currentMove.CurrentCol != -1 && currentMove.CurrentRow != -1) && 
                 (currentMove.ColToBeMovedTo != -1 && currentMove.RowToBeMovedTo != -1))
+            {
+                if(checkMove())
+                {
+                    makeMove();
+                    aiMakeMove();
+                }
+            }
+        }
+
+        private void aiMakeMove()
+        {
+            currentMove = ai.getAiMove(getCurrentBoard());
+            if(currentMove != null)
             {
                 if(checkMove())
                 {

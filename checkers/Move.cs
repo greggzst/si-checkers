@@ -59,7 +59,7 @@ namespace checkers
             return false;
         }
 
-        public Tuple<int,int> checkJump(string color)
+        public Tuple<int, int> checkJump(string color)
         {
             if (color == "black")
             {
@@ -88,6 +88,18 @@ namespace checkers
             }
 
             return null;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Move move = obj as Move;
+
+
+            return (CurrentRow == move.CurrentRow) && (CurrentCol == move.CurrentCol) &&
+                (RowToBeMovedTo == move.RowToBeMovedTo) && (ColToBeMovedTo == move.ColToBeMovedTo);
         }
     }
 }
