@@ -34,6 +34,26 @@ namespace checkers
             }
         }
 
+        public void setRedCount(int value)
+        {
+            redCount = value;
+        }
+
+        public void setBlackCount(int value)
+        {
+            blackCount = value;
+        }
+
+        public void setRedLadyCount(int value)
+        {
+            redLadyCount = value;
+        }
+
+        public void setBlackLadyCount(int value)
+        {
+            blackLadyCount = value;
+        }
+
         public void AssignPiece(int row, int col, FieldState piece)
         {
             board[row, col] = piece;
