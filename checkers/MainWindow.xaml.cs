@@ -265,7 +265,7 @@ namespace checkers
             }
         }
 
-        private Boolean checkMove()
+        private bool checkMove()
         {
             StackPanel stackPanel1 = getBoardField(board, currentMove.CurrentRow, currentMove.CurrentCol);
             StackPanel stackPanel2 = getBoardField(board, currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
