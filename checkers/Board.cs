@@ -428,5 +428,42 @@ namespace checkers
                 return false;
             }
         }
+
+        public bool handleJump(Move move, string player)
+        {
+            bool jumped;
+            Tuple<int, int> spaceSkipped = move.getSpaceInBetween();
+
+            // Verifies that jump was made
+            if (spaceSkipped.Item1 != move.CurrentRow && spaceSkipped.Item1 != move.RowToBeMovedTo &&
+                    spaceSkipped.Item2 != move.CurrentCol && spaceSkipped.Item2 != move.ColToBeMovedTo)
+            {
+                if (GetPiece(spaceSkipped.Item1,spaceSkipped.Item2) == FieldState.RED_LADY)
+                {
+                    redLadyCount -= 1;
+                }
+                if (GetPiece(spaceSkipped.Item1, spaceSkipped.Item2) == FieldState.BLACK_LADY)
+                {
+                    blackLadyCount -= 1;
+                }
+                AssignPiece(spaceSkipped.Item1, spaceSkipped.Item2, FieldState.EMPTY);
+                jumped = true;
+                if (player.Equals("red"))
+                {
+                    blackCount -= 1;
+
+                }
+                else
+                {
+                    redCount -= 1;
+                }
+            }
+            else
+            {
+                jumped = false;
+            }
+
+            return jumped;
+        }
     }
 }
