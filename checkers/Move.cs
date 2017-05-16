@@ -101,5 +101,10 @@ namespace checkers
             return (CurrentRow == move.CurrentRow) && (CurrentCol == move.CurrentCol) &&
                 (RowToBeMovedTo == move.RowToBeMovedTo) && (ColToBeMovedTo == move.ColToBeMovedTo);
         }
+
+        public Tuple<int, int> getSpaceInBetween()
+        {
+            return new Tuple<int,int>((CurrentRow + RowToBeMovedTo) / 2, (CurrentCol + ColToBeMovedTo) / 2);
+        }
     }
 }
