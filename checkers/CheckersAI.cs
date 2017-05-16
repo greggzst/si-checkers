@@ -10,12 +10,12 @@ namespace checkers
     {
         private Node decisionTree;
         private Move move;
-        private string colour;
+        private string me;
         private string opponent;
 
         public CheckersAI(string colour)
         {
-            this.colour = colour;
+            this.me = colour;
             if (colour.Equals("red"))
             {
                 opponent = "black";
@@ -36,26 +36,40 @@ namespace checkers
         private Node buildTree(Board board)
         {
             Node root = new Node(board, null, score(board));
+            buildTree(root, 4, true);
+            return root;
+        }
 
-            List<Move> moves = board.getAllLegalMovesForColor(colour);
+        private void buildTree(Node root, int depth, bool player)
+        {
+            if(depth == 0)
+            {
+                return;
+            }
+
+            string colour = player ? me : opponent; 
+
+            List<Move> moves;
+            List<Move> jumpMoves = root.getBoard().getJumps(colour);
+            if (jumpMoves.Count > 0)
+            {
+                moves = jumpMoves;
+            }
+            else
+            {
+                moves = root.getBoard().getAllLegalMovesForColor(colour);
+            }
 
             foreach (var move in moves)
             {
-                Board copy = copyBoard(board);
+                Board copy = copyBoard(root.getBoard());
                 copy.makeMove(move, colour);
-                Node firstLayer = new Node(copy, move, score(copy));
-                List<Move> opponentMoves = copy.getAllLegalMovesForColor(opponent);
-
-                foreach (var omove in opponentMoves)
-                {
-                    Board copy2 = copyBoard(copy);
-                    copy2.makeMove(omove, opponent);
-                    firstLayer.addChild(new Node(copy2, omove, score(copy2)));
-                }
-                root.addChild(firstLayer);
+                Node child = new Node(copy, move, score(copy));
+                buildTree(child, depth - 1, !player);
+                root.addChild(child);
             }
 
-            return root;
+
         }
 
         private Move pickMove()
@@ -90,7 +104,7 @@ namespace checkers
 
         private int score(Board board)
         {
-            if (colour.Equals("red"))
+            if (me.Equals("red"))
             {
                 return board.getRedWeightedScore() - board.getBlackWeightedScore();
             }
