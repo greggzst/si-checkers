@@ -74,23 +74,13 @@ namespace checkers
 
         private Move pickMove()
         {
+            minmax(decisionTree, 4, true);
+
             int max = int.MinValue;
             int index = 0;
-
             for(int i = 0; i < decisionTree.getNumChildren(); i++)
             {
                 Node child = decisionTree.getChild(i);
-                int smin = int.MaxValue;
-
-                foreach (var sChild in child.getChildren())
-                {
-                    if(sChild.getScore() <= smin)
-                    {
-                        smin = sChild.getScore();
-                    }
-                }
-                child.setScore(smin);
-
                 if(child.getScore() >= max)
                 {
                     max = child.getScore();
@@ -99,7 +89,35 @@ namespace checkers
             }
 
             return decisionTree.getChild(index).getMove();
+        }
 
+        private int minmax(Node root, int depth, bool maxPlayer)
+        {
+            if (depth == 0 || root.getNumChildren() == 0)
+                return root.getScore();
+
+            if(maxPlayer)
+            {
+                int bestValue = int.MinValue;
+                foreach (var child in root.getChildren())
+                {
+                    int val = minmax(child, depth - 1, false);
+                    bestValue = Math.Max(bestValue, val);
+                }
+                root.setScore(bestValue);
+                return bestValue;
+            }
+            else
+            {
+                int bestValue = int.MaxValue;
+                foreach (var child in root.getChildren())
+                {
+                    int val = minmax(child, depth - 1, true);
+                    bestValue = Math.Min(bestValue, val);
+                }
+                root.setScore(bestValue);
+                return bestValue;
+            }
         }
 
         private int score(Board board)
@@ -125,6 +143,11 @@ namespace checkers
                     copy.AssignPiece(row, col, board.GetPiece(row, col));
                 }
             }
+
+            copy.setBlackCount(board.getBlackCount());
+            copy.setBlackLadyCount(board.getBlackLadyCount());
+            copy.setRedCount(board.getRedCount());
+            copy.setRedLadyCount(board.getRedLadyCount());
 
             return copy;
         }
