@@ -522,6 +522,11 @@ namespace checkers
                 winner = "red";
             if (totalRed == 0)
                 winner = "black";
+
+            if(winner != null)
+            {
+                MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
+            }
         }
 
         private void checkLady(int row, int col)
