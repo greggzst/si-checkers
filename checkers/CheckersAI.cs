@@ -64,6 +64,7 @@ namespace checkers
             {
                 Board copy = copyBoard(root.getBoard());
                 copy.makeMove(move, colour);
+                copy.handleJump(move, colour);
                 Node child = new Node(copy, move, score(copy));
                 buildTree(child, depth - 1, !player);
                 root.addChild(child);
