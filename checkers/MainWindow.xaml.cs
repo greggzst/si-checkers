@@ -25,6 +25,7 @@ namespace checkers
         private Move currentMove;
         private string winner;
         private bool jumped;
+        private bool tie;
 
 
         public MainWindow()
@@ -503,6 +504,7 @@ namespace checkers
                 checkLady(currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
                 currentMove = null;
                 checkWin();
+                checkTie();
                 if (turn == "black")
                 {
                     this.Title = "Checkers! Reds turn!";
@@ -518,7 +520,7 @@ namespace checkers
         }
 
 
-        private bool checkWin()
+        private void checkWin()
         {
             int totalBlack = 0, totalRed = 0;
             for (int r = 0; r < 8; r++)
@@ -544,13 +546,11 @@ namespace checkers
             if(winner != null)
             {
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
-                return true;
             }
 
-            return false;
         }
 
-        private bool tie()
+        private void checkTie()
         {
             Board gameBoard = getCurrentBoard();
             if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
@@ -566,11 +566,16 @@ namespace checkers
 
                 if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
                 {
-                    return true;
+                    tie = true;
                 }
             }
 
-            return false;
+            tie = false;
+
+            if(tie)
+            {
+                MessageBoxResult result = MessageBox.Show("Tie!", "Tie", MessageBoxButton.YesNo);
+            }
         }
 
         private void checkLady(int row, int col)
