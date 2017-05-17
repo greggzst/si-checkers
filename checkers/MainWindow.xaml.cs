@@ -21,7 +21,8 @@ namespace checkers
     public partial class MainWindow : Window
     {
         private string turn;
-        private CheckersAI ai;
+        private CheckersAI ai1;
+        private CheckersAI ai2;
         private Move currentMove;
         private string winner;
         private bool jumped;
@@ -282,12 +283,21 @@ namespace checkers
                 if(checkMove())
                 {
                     makeMove();
-                    aiMakeMove();
+                    aiMakeMove(ai1);
                 }
             }
         }
 
-        private void aiMakeMove()
+        private void twoAiPlay(CheckersAI p1, CheckersAI p2)
+        {
+            while(winner == null && !tie)
+            {
+                aiMakeMove(p1);
+                aiMakeMove(p2);
+            }
+        }
+
+        private void aiMakeMove(CheckersAI ai)
         {
             currentMove = ai.getAiMove(getCurrentBoard());
             if(currentMove != null)
@@ -578,6 +588,10 @@ namespace checkers
             if(winner != null)
             {
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
+                if(result == MessageBoxResult.Yes)
+                {
+                    buildEmptyBoard();
+                }
             }
 
         }
@@ -649,9 +663,15 @@ namespace checkers
             clearBoard();
             buildBoard();
             turn = "black";
-            ai = new CheckersAI("red");
+            ai1 = new CheckersAI("red");
+            ai2 = new CheckersAI("black");
             currentMove = null;
             winner = null;
+
+            if(minmaxVSMinmax.IsChecked == true)
+            {
+                twoAiPlay(ai2, ai1);
+            }
         }
     }
 }
