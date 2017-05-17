@@ -31,12 +31,31 @@ namespace checkers
         public MainWindow()
         {
             InitializeComponent();
-            turn = "black";
-            ai = new CheckersAI("red");
-            currentMove = null;
-            winner = null;
-            buildBoard();
+            buildEmptyBoard();
+        }
 
+        private void buildEmptyBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    StackPanel boardField = new StackPanel();
+
+                    if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0))
+                    {
+                        boardField.Background = Brushes.White;
+                    }
+                    else
+                    {
+                        boardField.Background = Brushes.Gray;
+                    }
+
+                    board.Children.Add(boardField);
+                    Grid.SetRow(boardField, i);
+                    Grid.SetColumn(boardField, j);
+                }
+            }
         }
 
         private void buildBoard()
@@ -61,9 +80,22 @@ namespace checkers
                     Grid.SetColumn(boardField, j);
                 }
             }
-
             insertPiecesOnBoard();
         }
+
+        private void clearBoard()
+        {
+            for (int r = 0; r < 8; r++)
+            {
+                for (int c = 0; c < 8; c++)
+                {
+                    StackPanel stackPanel = getBoardField(board, r, c);
+                    board.Children.Remove(stackPanel);
+                }
+            }
+        }
+
+
 
         private StackPanel getBoardField(Grid board, int row, int col)
         {
@@ -610,6 +642,16 @@ namespace checkers
         private void displayError(string error)
         {
             MessageBox.Show(error, "Invalid Move", MessageBoxButton.OK);
+        }
+
+        private void startNewGame(object sender, RoutedEventArgs e)
+        {
+            clearBoard();
+            buildBoard();
+            turn = "black";
+            ai = new CheckersAI("red");
+            currentMove = null;
+            winner = null;
         }
     }
 }
