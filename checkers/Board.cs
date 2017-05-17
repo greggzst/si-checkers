@@ -22,6 +22,7 @@ namespace checkers
         private int blackCount;
         private int blackLadyCount;
         private int redLadyCount;
+        private bool jumped;
 
         public Board()
         {
@@ -429,9 +430,8 @@ namespace checkers
             }
         }
 
-        public bool handleJump(Move move, string player)
+        public void handleJump(Move move, string player)
         {
-            bool jumped;
             Tuple<int, int> spaceSkipped = move.getSpaceInBetween();
 
             // Verifies that jump was made
@@ -463,7 +463,6 @@ namespace checkers
                 jumped = false;
             }
 
-            return jumped;
         }
     }
 }
