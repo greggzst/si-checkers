@@ -518,7 +518,7 @@ namespace checkers
         }
 
 
-        private void checkWin()
+        private bool checkWin()
         {
             int totalBlack = 0, totalRed = 0;
             for (int r = 0; r < 8; r++)
@@ -544,7 +544,10 @@ namespace checkers
             if(winner != null)
             {
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
+                return true;
             }
+
+            return false;
         }
 
         private bool tie()
