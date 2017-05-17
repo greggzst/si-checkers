@@ -547,6 +547,29 @@ namespace checkers
             }
         }
 
+        private bool tie()
+        {
+            Board gameBoard = getCurrentBoard();
+            if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
+            {
+                if(turn.Equals("red"))
+                {
+                    turn = "black";
+                }
+                else
+                {
+                    turn = "red";
+                }
+
+                if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void checkLady(int row, int col)
         {
             StackPanel stackPanel = getBoardField(board, row, col);
