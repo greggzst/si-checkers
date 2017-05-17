@@ -35,6 +35,11 @@ namespace checkers
             }
         }
 
+        public bool isJumped()
+        {
+            return jumped;
+        }
+
         public void setRedCount(int value)
         {
             redCount = value;
