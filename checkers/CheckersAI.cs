@@ -50,10 +50,14 @@ namespace checkers
             string colour = player ? me : opponent; 
 
             List<Move> moves;
-            List<Move> jumpMoves = root.getBoard().getJumps(colour);
-            if (jumpMoves.Count > 0)
+            if (root.getBoard().isJumped())
             {
-                moves = jumpMoves;
+                var lastMove = root.getMove();
+                moves = root.getBoard().getJumpsFromLocation(colour,lastMove.RowToBeMovedTo,lastMove.ColToBeMovedTo);
+            }
+            else if(root.getBoard().getJumps(colour).Count > 0)
+            {
+                moves = root.getBoard().getJumps(colour);
             }
             else
             {
