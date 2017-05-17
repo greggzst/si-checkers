@@ -35,6 +35,11 @@ namespace checkers
             buildEmptyBoard();
         }
 
+        public bool isJumped()
+        {
+            return jumped;
+        }
+
         private void buildEmptyBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -544,20 +549,44 @@ namespace checkers
                 Grid.SetColumn(stackPanel2, currentMove.CurrentCol);
                 board.Children.Add(stackPanel2);
                 checkLady(currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
-                currentMove = null;
                 checkWin();
                 checkTie();
-                if (turn == "black")
+
+                //handles multipe jumps
+                if(jumped)
                 {
-                    this.Title = "Checkers! Reds turn!";
-                    turn = "red";
+                    var jumpMovesCount = getCurrentBoard().getJumpsFromLocation(turn, currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo).Count;
+                    if (jumpMovesCount == 0)
+                    {
+                        jumped = false;
+                        if (turn == "black")
+                        {
+                            this.Title = "Checkers! Reds turn!";
+                            turn = "red";
+                        }
+                        else if (turn == "red")
+                        {
+                            this.Title = "Checkers! Blacks turn!";
+                            turn = "black";
+                        }
+                    }
                 }
-                else if (turn == "red")
+                else
                 {
-                    this.Title = "Checkers! Blacks turn!";
-                    turn = "black";
+                    jumped = false;
+                    if (turn == "black")
+                    {
+                        this.Title = "Checkers! Reds turn!";
+                        turn = "red";
+                    }
+                    else if (turn == "red")
+                    {
+                        this.Title = "Checkers! Blacks turn!";
+                        turn = "black";
+                    }
                 }
-                
+
+                currentMove = null;
             }
         }
 
