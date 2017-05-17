@@ -24,6 +24,7 @@ namespace checkers
         private CheckersAI ai;
         private Move currentMove;
         private string winner;
+        private bool jumped;
 
 
         public MainWindow()
@@ -347,7 +348,10 @@ namespace checkers
                 if (button1.Name.Contains("Lady"))
                 {
                     if ((currentMove.isAdjacent("lady")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        jumped = false;
                         return true;
+                    }
                     Tuple<int,int> middlePiece = currentMove.checkJump("lady");
                     if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
                     {
@@ -357,6 +361,7 @@ namespace checkers
                         {
                             board.Children.Remove(middleStackPanel);
                             addGrayButton(middlePiece);
+                            jumped = true;
                             return true;
                         }
                     }
@@ -364,7 +369,10 @@ namespace checkers
                 else
                 {
                     if ((currentMove.isAdjacent("red")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        jumped = false;
                         return true;
+                    }
                     Tuple<int, int> middlePiece = currentMove.checkJump("red");
                     if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
                     {
@@ -374,6 +382,7 @@ namespace checkers
                         {
                             board.Children.Remove(middleStackPanel);
                             addGrayButton(middlePiece);
+                            jumped = true;
                             return true;
                         }
                     }
@@ -404,7 +413,6 @@ namespace checkers
                     currentMove.CurrentCol = -1;
                     currentMove.RowToBeMovedTo = -1;
                     currentMove.ColToBeMovedTo = -1;
-                    Console.WriteLine("False");
                     return false;
                 }
             }
@@ -414,7 +422,10 @@ namespace checkers
                 if (button1.Name.Contains("Lady"))
                 {
                     if ((currentMove.isAdjacent("lady")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        jumped = false;
                         return true;
+                    }
                     Tuple<int, int> middlePiece = currentMove.checkJump("lady");
                     if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
                     {
@@ -424,6 +435,7 @@ namespace checkers
                         {
                             board.Children.Remove(middleStackPanel);
                             addGrayButton(middlePiece);
+                            jumped = true;
                             return true;
                         }
                     }
@@ -431,7 +443,10 @@ namespace checkers
                 else
                 {
                     if ((currentMove.isAdjacent("black")) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
+                    {
+                        jumped = false;
                         return true;
+                    }
                     Tuple<int, int> middlePiece = currentMove.checkJump("black");
                     if ((middlePiece != null) && (!button2.Name.Contains("Black")) && (!button2.Name.Contains("Red")))
                     {
@@ -441,6 +456,7 @@ namespace checkers
                         {
                             board.Children.Remove(middleStackPanel);
                             addGrayButton(middlePiece);
+                            jumped = true;
                             return true;
                         }
                     }
@@ -486,6 +502,7 @@ namespace checkers
                 board.Children.Add(stackPanel2);
                 checkLady(currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
                 currentMove = null;
+                checkWin();
                 if (turn == "black")
                 {
                     this.Title = "Checkers! Reds turn!";
@@ -496,9 +513,10 @@ namespace checkers
                     this.Title = "Checkers! Blacks turn!";
                     turn = "black";
                 }
-                checkWin();
+                
             }
         }
+
 
         private void checkWin()
         {
