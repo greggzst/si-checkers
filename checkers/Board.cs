@@ -503,37 +503,38 @@ namespace checkers
         private int firstArea(string colour)
         {
             int score = 0;
+            int constVal = 100;
             for(int i = 0; i < 8; i++)
             {
                 if(colour.Equals("red"))
                 {
                     FieldState piece = GetPiece(0, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(7, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(i, 0);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(i, 7);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 15;
+                        score += constVal;
                 }
                 else
                 {
                     FieldState piece = GetPiece(0, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(7, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(i, 0);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 15;
+                        score += constVal;
                     piece = GetPiece(i, 7);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 15;
+                        score += constVal;
                 }
             }
 
@@ -543,37 +544,38 @@ namespace checkers
         private int secondArea(string colour)
         {
             int score = 0;
+            int constVal = 75;
             for (int i = 1; i < 7; i++)
             {
                 if (colour.Equals("red"))
                 {
                     FieldState piece = GetPiece(1, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(6, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(i, 1);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(i, 6);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 10;
+                        score += constVal;
                 }
                 else
                 {
                     FieldState piece = GetPiece(1, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(6, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(i, 1);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 10;
+                        score += constVal;
                     piece = GetPiece(i, 6);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 10;
+                        score += constVal;
                 }
             }
 
@@ -583,37 +585,207 @@ namespace checkers
         private int thirdArea(string colour)
         {
             int score = 0;
+            int constVal = -15;
             for (int i = 2; i < 6; i++)
             {
                 if (colour.Equals("red"))
                 {
                     FieldState piece = GetPiece(2, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(5, i);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(i, 2);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(i, 5);
                     if (piece == FieldState.RED || piece == FieldState.RED_LADY)
-                        score += 5;
+                        score += constVal;
                 }
                 else
                 {
                     FieldState piece = GetPiece(2, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(5, i);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(i, 2);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 5;
+                        score += constVal;
                     piece = GetPiece(i, 5);
                     if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
-                        score += 5;
+                        score += constVal;
+                }
+            }
+
+            return score;
+        }
+
+        public int getLevelsScore(string colour)
+        {
+            return getFirstLevelScore(colour) + getSecondLevelScore(colour) + getThirdLevelScore(colour) + getFourthLevelScore(colour);
+        }
+
+        private int getFirstLevelScore(string colour)
+        {
+            int score = 0;
+            if(colour.Equals("red"))
+            {
+                int value = -10;
+                for(int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(0, col);
+                    if(piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(1, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+            else
+            {
+                int value = 60;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(0, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(1, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+
+            return score;
+        }
+
+        private int getSecondLevelScore(string colour)
+        {
+            int score = 0;
+            if (colour.Equals("red"))
+            {
+                int value = 10;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(2, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(3, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+            else
+            {
+                int value = 30;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(2, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(3, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+
+            return score;
+        }
+
+        private int getThirdLevelScore(string colour)
+        {
+            int score = 0;
+            if (colour.Equals("red"))
+            {
+                int value = 30;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(4, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(5, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+            else
+            {
+                int value = 10;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(4, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(5, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+
+            return score;
+        }
+
+        private int getFourthLevelScore(string colour)
+        {
+            int score = 0;
+            if (colour.Equals("red"))
+            {
+                int value = 60;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(6, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(7, col);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                    {
+                        score += value;
+                    }
+                }
+            }
+            else
+            {
+                int value = -10;
+                for (int col = 0; col < 8; col++)
+                {
+                    FieldState piece = GetPiece(6, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
+                    piece = GetPiece(7, col);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                    {
+                        score += value;
+                    }
                 }
             }
 
