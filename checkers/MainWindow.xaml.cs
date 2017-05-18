@@ -304,12 +304,15 @@ namespace checkers
 
         private void aiMakeMove(CheckersAI ai)
         {
-            currentMove = ai.getAiMove(getCurrentBoard());
-            if(currentMove != null)
+            while(turn.Equals(ai.getPlayer()))
             {
-                if(checkMove())
+                currentMove = ai.getAiMove(getCurrentBoard());
+                if (currentMove != null)
                 {
-                    makeMove();
+                    if (checkMove())
+                    {
+                        makeMove();
+                    }
                 }
             }
         }
@@ -549,8 +552,6 @@ namespace checkers
                 Grid.SetColumn(stackPanel2, currentMove.CurrentCol);
                 board.Children.Add(stackPanel2);
                 checkLady(currentMove.RowToBeMovedTo, currentMove.ColToBeMovedTo);
-                checkWin();
-                checkTie();
 
                 //handles multipe jumps
                 if(jumped)
@@ -585,7 +586,8 @@ namespace checkers
                         turn = "black";
                     }
                 }
-
+                checkWin();
+                checkTie();
                 currentMove = null;
             }
         }
@@ -616,6 +618,7 @@ namespace checkers
 
             if(winner != null)
             {
+                this.Title = winner + "is the winner!";
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
                 if(result == MessageBoxResult.Yes)
                 {
