@@ -134,11 +134,11 @@ namespace checkers
         {
             if (player.Equals("red"))
             {
-                return board.getRedWeightedScore();
+                return board.getRedWeightedScore() + board.getFirstAreaScore(player);
             }
             else
             {
-                return board.getBlackWeightedScore();
+                return board.getBlackWeightedScore() + board.getFirstAreaScore(player);
             }
         }
 

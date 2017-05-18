@@ -469,5 +469,140 @@ namespace checkers
             }
 
         }
+
+        public int getFirstAreaScore(string colour)
+        {
+            return firstArea(colour);
+        }
+
+        public int getSecondAreaScore(string colour)
+        {
+            return secondArea(colour);
+        }
+
+        public int getThirdAreaScore(string colour)
+        {
+            return thirdArea(colour);
+        }
+
+        private int firstArea(string colour)
+        {
+            int score = 0;
+            for(int i = 0; i < 8; i++)
+            {
+                if(colour.Equals("red"))
+                {
+                    FieldState piece = GetPiece(0, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 15;
+                    piece = GetPiece(7, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 15;
+                    piece = GetPiece(i, 0);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 15;
+                    piece = GetPiece(i, 7);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 15;
+                }
+                else
+                {
+                    FieldState piece = GetPiece(0, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 15;
+                    piece = GetPiece(7, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 15;
+                    piece = GetPiece(i, 0);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 15;
+                    piece = GetPiece(i, 7);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 15;
+                }
+            }
+
+            return score;
+        }
+
+        private int secondArea(string colour)
+        {
+            int score = 0;
+            for (int i = 1; i < 7; i++)
+            {
+                if (colour.Equals("red"))
+                {
+                    FieldState piece = GetPiece(1, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 10;
+                    piece = GetPiece(6, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 10;
+                    piece = GetPiece(i, 1);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 10;
+                    piece = GetPiece(i, 6);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 10;
+                }
+                else
+                {
+                    FieldState piece = GetPiece(1, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 10;
+                    piece = GetPiece(6, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 10;
+                    piece = GetPiece(i, 1);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 10;
+                    piece = GetPiece(i, 6);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 10;
+                }
+            }
+
+            return score;
+        }
+
+        private int thirdArea(string colour)
+        {
+            int score = 0;
+            for (int i = 2; i < 6; i++)
+            {
+                if (colour.Equals("red"))
+                {
+                    FieldState piece = GetPiece(2, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 5;
+                    piece = GetPiece(5, i);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 5;
+                    piece = GetPiece(i, 2);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 5;
+                    piece = GetPiece(i, 5);
+                    if (piece == FieldState.RED || piece == FieldState.RED_LADY)
+                        score += 5;
+                }
+                else
+                {
+                    FieldState piece = GetPiece(2, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 5;
+                    piece = GetPiece(5, i);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 5;
+                    piece = GetPiece(i, 2);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 5;
+                    piece = GetPiece(i, 5);
+                    if (piece == FieldState.BLACK || piece == FieldState.BLACK_LADY)
+                        score += 5;
+                }
+            }
+
+            return score;
+        }
     }
 }
