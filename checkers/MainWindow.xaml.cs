@@ -21,8 +21,7 @@ namespace checkers
     public partial class MainWindow : Window
     {
         private string turn;
-        private CheckersAI ai1;
-        private CheckersAI ai2;
+        private CheckersAI ai;
         private Move currentMove;
         private string winner;
         private bool jumped;
@@ -288,7 +287,7 @@ namespace checkers
                 if(checkMove())
                 {
                     makeMove();
-                    aiMakeMove(ai1);
+                    aiMakeMove(ai);
                 }
             }
         }
@@ -619,8 +618,9 @@ namespace checkers
             if(winner != null)
             {
                 this.Title = winner + "is the winner!";
-                MessageBoxResult result = MessageBox.Show(winner + " is the winner! Would you like to play another?", "Winner", MessageBoxButton.YesNo);
-                if(result == MessageBoxResult.Yes)
+                MessageBoxResult result = MessageBox.Show(winner + " is the winner!", "Winner", MessageBoxButton.OK);
+                turn = "";
+                if(result == MessageBoxResult.OK)
                 {
                     buildEmptyBoard();
                 }
@@ -630,29 +630,32 @@ namespace checkers
 
         private void checkTie()
         {
-            Board gameBoard = getCurrentBoard();
-            if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
+            if(winner == null)
             {
-                if(turn.Equals("red"))
+                Board gameBoard = getCurrentBoard();
+                if (gameBoard.getAllLegalMovesForColor(turn).Count == 0)
                 {
-                    turn = "black";
-                }
-                else
-                {
-                    turn = "red";
+                    if (turn.Equals("red"))
+                    {
+                        turn = "black";
+                    }
+                    else
+                    {
+                        turn = "red";
+                    }
+
+                    if (gameBoard.getAllLegalMovesForColor(turn).Count == 0)
+                    {
+                        tie = true;
+                    }
                 }
 
-                if(gameBoard.getAllLegalMovesForColor(turn).Count == 0)
+                tie = false;
+
+                if (tie)
                 {
-                    tie = true;
+                    MessageBoxResult result = MessageBox.Show("Tie!", "Tie", MessageBoxButton.YesNo);
                 }
-            }
-
-            tie = false;
-
-            if(tie)
-            {
-                MessageBoxResult result = MessageBox.Show("Tie!", "Tie", MessageBoxButton.YesNo);
             }
         }
 
@@ -695,14 +698,33 @@ namespace checkers
             clearBoard();
             buildBoard();
             turn = "black";
-            ai1 = new CheckersAI("red");
-            ai2 = new CheckersAI("black");
+            //minmax ai
+            ai = new CheckersAI("red", true);
+            CheckersAI ai2 = new CheckersAI("black", true);
+            //alpha beta ai
+            CheckersAI alphabeta1 = new CheckersAI("red", false);
+            CheckersAI alphabeta2 = new CheckersAI("black", false);
             currentMove = null;
             winner = null;
 
             if(minmaxVSMinmax.IsChecked == true)
             {
-                twoAiPlay(ai2, ai1);
+                twoAiPlay(ai2, ai);
+            }
+
+            if(minmaxVSAlfabeta.IsChecked == true)
+            {
+                twoAiPlay(ai2, alphabeta1);
+            }
+
+            if(alfabetaVSPlayer.IsChecked == true)
+            {
+                ai = alphabeta1;
+            }
+
+            if(alfabetaVSAlfabeta.IsChecked == true)
+            {
+                twoAiPlay(alphabeta2, alphabeta1);
             }
         }
     }

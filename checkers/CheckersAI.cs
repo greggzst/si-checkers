@@ -12,8 +12,9 @@ namespace checkers
         private Move move;
         private string me;
         private string opponent;
+        private bool useMinmax;
 
-        public CheckersAI(string colour)
+        public CheckersAI(string colour, bool flag)
         {
             this.me = colour;
             if (colour.Equals("red"))
@@ -24,6 +25,8 @@ namespace checkers
             {
                 opponent = "red";
             }
+
+            useMinmax = flag;
         }
 
         public Move getAiMove(Board board)
@@ -84,7 +87,10 @@ namespace checkers
 
         private Move pickMove()
         {
-            minmax(decisionTree, 5, true);
+            if(useMinmax)
+                minmax(decisionTree, 5, true);
+            else
+                alphabeta(decisionTree, 5, int.MinValue, int.MaxValue, true);
 
             int max = int.MinValue;
             int index = 0;

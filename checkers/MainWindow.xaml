@@ -40,5 +40,6 @@
         <RadioButton x:Name="minmaxVSAlfabeta" Content="Minmax vs Alfa Beta" Grid.Column="1" HorizontalAlignment="Left" Margin="59,258,0,0" VerticalAlignment="Top" GroupName="gameType"/>
         <RadioButton x:Name="minmaxVSPlayer" Content="Minmax vs Player" Grid.Column="1" HorizontalAlignment="Left" Margin="59,223,0,0" VerticalAlignment="Top" GroupName="gameType" IsChecked="True"/>
         <RadioButton x:Name="alfabetaVSPlayer" Content="Alfa Beta vs Player" Grid.Column="1" HorizontalAlignment="Left" Margin="59,274,0,0" VerticalAlignment="Top" GroupName="gameType"/>
+        <RadioButton x:Name="alfabetaVSAlfabeta" Content="Alfa Beta vs Alfa Beta" Grid.Column="1" HorizontalAlignment="Left" Margin="59,290,0,0" VerticalAlignment="Top" GroupName="gameType"/>
     </Grid>
 </Window>
