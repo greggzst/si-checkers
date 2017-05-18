@@ -116,12 +116,12 @@ namespace checkers
 
         public int getRedWeightedScore()
         {
-            return redCount - redLadyCount + (3 * redLadyCount);
+            return 5 * redCount + 50 * redLadyCount;
         }
 
         public int getBlackWeightedScore()
         {
-            return blackCount - blackLadyCount + (3 * blackLadyCount);
+            return 5 * blackCount + 50 * blackLadyCount;
         }
 
         public List<Move> getJumps(string player)
