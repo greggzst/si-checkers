@@ -362,6 +362,21 @@ namespace checkers
             return moves;
         }
 
+        public int getBeatScore(string colour)
+        {
+            int score = 0;
+            for(int row = 0; row < 8; row++)
+            {
+                for(int col = 0; col < 8; col++)
+                {
+                    if (getJumpsFromLocation(colour, row, col).Count > 0)
+                        score += 200;
+                }
+            }
+
+            return score;
+        }
+
         public List<Move> getLegalMovesForPlayerAtPosition(string player, int row, int col)
         {
             FieldState chosenPiece = GetPiece(row, col);

@@ -132,13 +132,16 @@ namespace checkers
 
         private int score(Board board,string player)
         {
+            int score = board.getFirstAreaScore(player) + board.getBeatScore(player);
             if (player.Equals("red"))
             {
-                return board.getRedWeightedScore() + board.getFirstAreaScore(player);
+                score += board.getRedWeightedScore();
+                return score;
             }
             else
             {
-                return board.getBlackWeightedScore() + board.getFirstAreaScore(player);
+                score += board.getBlackWeightedScore();
+                return score;
             }
         }
 
