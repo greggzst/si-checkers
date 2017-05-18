@@ -41,7 +41,7 @@ namespace checkers
         private Node buildTree(Board board)
         {
             Node root = new Node(board, null, score(board,me));
-            buildTree(root, 4, true);
+            buildTree(root, 5, true);
             return root;
         }
 
@@ -84,7 +84,7 @@ namespace checkers
 
         private Move pickMove()
         {
-            minmax(decisionTree, 4, true);
+            minmax(decisionTree, 5, true);
 
             int max = int.MinValue;
             int index = 0;
@@ -127,6 +127,34 @@ namespace checkers
                 }
                 root.setScore(bestValue);
                 return bestValue;
+            }
+        }
+
+        private int alphabeta(Node root, int depth, int a, int b, bool maxPlayer)
+        {
+            if (depth == 0 || root.getNumChildren() == 0)
+                return root.getScore();
+            if(maxPlayer)
+            {
+                foreach (var child in root.getChildren())
+                {
+                    a = Math.Max(a, alphabeta(child, depth - 1, a, b, false));
+                    if (a >= b)
+                        break;
+                }
+                root.setScore(a);
+                return a;
+            }
+            else
+            {
+                foreach (var child in root.getChildren())
+                {
+                    b = Math.Min(b, alphabeta(child, depth - 1, a, b, true));
+                    if (a >= b)
+                        break;
+                }
+                root.setScore(b);
+                return b;
             }
         }
 
