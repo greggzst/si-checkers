@@ -33,9 +33,14 @@ namespace checkers
             return move;
         }
 
+        public string getPlayer()
+        {
+            return me;
+        }
+
         private Node buildTree(Board board)
         {
-            Node root = new Node(board, null, score(board));
+            Node root = new Node(board, null, score(board,me));
             buildTree(root, 4, true);
             return root;
         }
@@ -69,7 +74,7 @@ namespace checkers
                 Board copy = copyBoard(root.getBoard());
                 copy.makeMove(move, colour);
                 copy.handleJump(move, colour);
-                Node child = new Node(copy, move, score(copy));
+                Node child = new Node(copy, move, score(copy,colour));
                 buildTree(child, depth - 1, !player);
                 root.addChild(child);
             }
@@ -125,15 +130,15 @@ namespace checkers
             }
         }
 
-        private int score(Board board)
+        private int score(Board board,string player)
         {
-            if (me.Equals("red"))
+            if (player.Equals("red"))
             {
-                return board.getRedWeightedScore() - board.getBlackWeightedScore();
+                return board.getRedWeightedScore();
             }
             else
             {
-                return board.getRedWeightedScore() - board.getRedWeightedScore();
+                return board.getBlackWeightedScore();
             }
         }
 
