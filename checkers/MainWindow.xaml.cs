@@ -320,7 +320,7 @@ namespace checkers
                     summary += " alfa beta made: ";
                 }
 
-                summary += p1.getNumOfMoves() + "\n";
+                summary += p1.getNumOfMoves() + "moves \n";
 
                 summary += "Loser: " + p2.getPlayer();
 
@@ -333,7 +333,7 @@ namespace checkers
                     summary += " alfa beta made: ";
                 }
 
-                summary += p2.getNumOfMoves() + "\n";
+                summary += p2.getNumOfMoves() + "moves \n";
 
 
 
@@ -351,7 +351,7 @@ namespace checkers
                     summary += " alfa beta made: ";
                 }
 
-                summary += p2.getNumOfMoves();
+                summary += p2.getNumOfMoves() + "moves \n";
 
                 summary += "Loser: " + p1.getPlayer();
 
@@ -364,7 +364,7 @@ namespace checkers
                     summary += " alfa beta made: ";
                 }
 
-                summary += p1.getNumOfMoves() + "\n";
+                summary += p1.getNumOfMoves() + "moves \n";
             }
 
             return summary;

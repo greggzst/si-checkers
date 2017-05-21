@@ -52,7 +52,7 @@
             <RadioButton x:Name="minmaxVSMinmax" Grid.Row="3" Content="Minmax vs Minmax" Grid.Column="1"  GroupName="gameType" Margin="10,0" />
             <RadioButton x:Name="minmaxVSAlfabeta" Grid.Row="4" Content="Minmax vs Alfa Beta" Grid.Column="1"  GroupName="gameType" Margin="10,0" />
             <RadioButton x:Name="alfabetaVSAlfabeta" Grid.Row="5" Content="Alfa Beta vs Alfa Beta" Grid.Column="1" GroupName="gameType" Margin="10,0"/>
-            <TextBlock x:Name="gameSummary" Grid.Row="6" Width="250" Height="200" VerticalAlignment="Bottom" Margin="0,0,0,30.4" />
+            <TextBlock x:Name="gameSummary" Grid.Row="6" Width="250" Height="100" VerticalAlignment="Bottom" Margin="5,0,0,30.4" TextWrapping="Wrap" />
         </Grid>
     </Grid>
 </Window>
