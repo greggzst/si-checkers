@@ -655,7 +655,11 @@ namespace checkers
                     }
                 }
                 checkWin();
-                checkTie();
+                
+                if(winner == null)
+                {
+                    checkTie();
+                }
                 currentMove = null;
             }
         }
