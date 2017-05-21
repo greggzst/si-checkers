@@ -15,8 +15,9 @@ namespace checkers
         private string opponent;
         private bool useMinmax;
         private int treeDepth;
+        private int heuristic;
 
-        public CheckersAI(string colour, int treeDepth,bool flag)
+        public CheckersAI(string colour, int treeDepth, int heuristic, bool flag)
         {
             this.me = colour;
             if (colour.Equals("red"))
@@ -27,6 +28,7 @@ namespace checkers
             {
                 opponent = "red";
             }
+            this.heuristic = heuristic;
             this.treeDepth = treeDepth;
             numOfMoves = 0;
             useMinmax = flag;
@@ -180,7 +182,7 @@ namespace checkers
 
         private int score(Board board,string player)
         {
-            int score = 150 * board.getAreasScore(player) + board.getBeatScore(player) + 300 * board.getLevelsScore(player);
+            int score = board.getAreasScore(player) + board.getBeatScore(player) + board.getLevelsScore(player);
             if (player.Equals("red"))
             {
                 score += board.getRedWeightedScore() - board.getBeatScore("black");

@@ -767,32 +767,157 @@ namespace checkers
             clearBoard();
             buildBoard();
             turn = "black";
-            //minmax ai
-            ai = new CheckersAI("red", 5,true);
-            CheckersAI ai2 = new CheckersAI("black", 5, true);
-            //alpha beta ai
-            CheckersAI alphabeta1 = new CheckersAI("red", 5, false);
-            CheckersAI alphabeta2 = new CheckersAI("black", 5, false);
             currentMove = null;
             winner = null;
 
+            if(minmaxVSPlayer.IsChecked == true)
+            {
+                if(firstH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 1,true);
+                }
+
+                if(secondH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 2,true);
+                }
+
+                if(thirdH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 3,true);
+                }
+            }
+
             if(minmaxVSMinmax.IsChecked == true)
             {
+                CheckersAI ai2 = null;
+
+                if (firstH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 1, true);
+                }
+
+                if (secondH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 2, true);
+                }
+
+                if (thirdH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 3, true);
+                }
+                
+                if(firstHeuristic.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 1,true);
+                }
+
+                if (secondHeuristic.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 2, true);
+                }
+
+                if (thirdHeuristic.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 3, true);
+                }
+
                 twoAiPlay(ai2, ai);
             }
 
             if(minmaxVSAlfabeta.IsChecked == true)
             {
+                CheckersAI ai2 = null;
+                CheckersAI alphabeta1 = null;
+
+                if (firstH.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 1,true);
+                }
+
+                if (secondH.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 2, true);
+                }
+
+                if (thirdH.IsChecked == true)
+                {
+                    ai2 = new CheckersAI("black", 5, 1, true);
+                }
+
+                if (firstHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 1,false);
+                }
+
+                if (secondHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 2, false);
+                }
+
+                if (thirdHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 3, false);
+                }
+
                 twoAiPlay(ai2, alphabeta1);
             }
 
             if(alfabetaVSPlayer.IsChecked == true)
             {
-                ai = alphabeta1;
+                if (firstH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 1,false);
+                }
+
+                if (secondH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 2, false);
+                }
+
+                if (thirdH.IsChecked == true)
+                {
+                    ai = new CheckersAI("red", 5, 3, false);
+                }
+
             }
 
             if(alfabetaVSAlfabeta.IsChecked == true)
             {
+                CheckersAI alphabeta2 = null;
+                CheckersAI alphabeta1 = null;
+
+                if (firstH.IsChecked == true)
+                {
+                    alphabeta2 = new CheckersAI("black", 5, 1, false);
+                }
+
+                if (secondH.IsChecked == true)
+                {
+                    alphabeta2 = new CheckersAI("black", 5, 2, false);
+                }
+
+                if (thirdH.IsChecked == true)
+                {
+                    alphabeta2 = new CheckersAI("black", 5, 1, false);
+                }
+
+                if (firstHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 1, false);
+                }
+
+                if (secondHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 2, false);
+                }
+
+                if (thirdHeuristic.IsChecked == true)
+                {
+                    alphabeta1 = new CheckersAI("red", 5, 3, false);
+                }
+
+
                 twoAiPlay(alphabeta2, alphabeta1);
             }
         }

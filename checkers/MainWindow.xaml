@@ -52,7 +52,28 @@
             <RadioButton x:Name="minmaxVSMinmax" Grid.Row="3" Content="Minmax vs Minmax" Grid.Column="1"  GroupName="gameType" Margin="10,0" />
             <RadioButton x:Name="minmaxVSAlfabeta" Grid.Row="4" Content="Minmax vs Alfa Beta" Grid.Column="1"  GroupName="gameType" Margin="10,0" />
             <RadioButton x:Name="alfabetaVSAlfabeta" Grid.Row="5" Content="Alfa Beta vs Alfa Beta" Grid.Column="1" GroupName="gameType" Margin="10,0"/>
-            <TextBlock x:Name="gameSummary" Grid.Row="6" Width="250" Height="100" VerticalAlignment="Bottom" Margin="5,0,0,30.4" TextWrapping="Wrap" />
+            <Label Content="Heuristic" Grid.Row="6" Width="240" Height="25" Margin="10,9.8,-5,556.4" />
+            <Grid Grid.Row="6" Width="250" Margin="2,39.8,-2,182.4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="firstH" Grid.Row="0" Grid.Column="0" Content="First" GroupName="firstHeuristic" IsChecked="True" Margin="10,0" />
+                <RadioButton x:Name="secondH" Grid.Row="1" Grid.Column="0" Content="Second" GroupName="firstHeuristic" Margin="10,0" />
+                <RadioButton x:Name="thirdH" Grid.Row="2" Grid.Column="0" Content="Third" GroupName="firstHeuristic" Margin="10,0" />
+                <RadioButton x:Name="firstHeuristic" Grid.Row="0" Grid.Column="1" Content="First" GroupName="secondHeuristic" IsChecked="True" Margin="10,0" />
+                <RadioButton x:Name="secondHeuristic" Grid.Row="1" Grid.Column="1" Content="Second" GroupName="secondHeuristic" Margin="10,0" />
+                <RadioButton x:Name="thirdHeuristic" Grid.Row="2" Grid.Column="1" Content="Third" GroupName="secondHeuristic" Margin="10,0" />
+                <Label Content="Game Summary" Grid.Row="3" Width="245" Height="25" Margin="5,164.6,0,104.8" Grid.ColumnSpan="2"/>
+                <TextBlock x:Name="gameSummary" Grid.Row="3" Width="250" Height="100" VerticalAlignment="Bottom" Margin="5,0,-5,-0.2" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+            </Grid>
+
         </Grid>
     </Grid>
 </Window>
