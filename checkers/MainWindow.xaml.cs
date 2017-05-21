@@ -693,8 +693,9 @@ namespace checkers
                 this.Title = winner + "is the winner!";
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner!", "Winner", MessageBoxButton.OK);
                 turn = "";
-                if(result == MessageBoxResult.OK)
+                if (result == MessageBoxResult.OK)
                 {
+                    clearBoard();
                     buildEmptyBoard();
                 }
             }
