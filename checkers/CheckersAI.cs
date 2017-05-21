@@ -35,6 +35,11 @@ namespace checkers
             return numOfMoves;
         }
 
+        public bool useMinMax()
+        {
+            return useMinmax;
+        }
+
         public Move getAiMove(Board board)
         {
             decisionTree = buildTree(board);

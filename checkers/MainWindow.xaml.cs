@@ -299,6 +299,75 @@ namespace checkers
                 aiMakeMove(p1);
                 aiMakeMove(p2);
             }
+
+            gameSummary.Text = summary(p1, p2);
+        }
+
+        private string summary(CheckersAI p1, CheckersAI p2)
+        {
+            var summary = "";
+
+            if (winner.Equals(p1.getPlayer()))
+            {
+                summary += "Winner: " + p1.getPlayer();
+
+                if (p1.useMinMax())
+                {
+                    summary += " minmax made: ";
+                }
+                else
+                {
+                    summary += " alfa beta made: ";
+                }
+
+                summary += p1.getNumOfMoves() + "\n";
+
+                summary += "Loser: " + p2.getPlayer();
+
+                if (p2.useMinMax())
+                {
+                    summary += " minmax made: ";
+                }
+                else
+                {
+                    summary += " alfa beta made: ";
+                }
+
+                summary += p2.getNumOfMoves() + "\n";
+
+
+
+            }
+            else
+            {
+                summary += "Winner: " + p2.getPlayer();
+
+                if (p2.useMinMax())
+                {
+                    summary += " minmax made: ";
+                }
+                else
+                {
+                    summary += " alfa beta made: ";
+                }
+
+                summary += p2.getNumOfMoves();
+
+                summary += "Loser: " + p1.getPlayer();
+
+                if (p1.useMinMax())
+                {
+                    summary += " minmax made: ";
+                }
+                else
+                {
+                    summary += " alfa beta made: ";
+                }
+
+                summary += p1.getNumOfMoves() + "\n";
+            }
+
+            return summary;
         }
 
         private void aiMakeMove(CheckersAI ai)
