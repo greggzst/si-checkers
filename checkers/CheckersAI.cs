@@ -182,15 +182,40 @@ namespace checkers
 
         private int score(Board board,string player)
         {
-            int score = board.getAreasScore(player) + board.getBeatScore(player) + board.getLevelsScore(player);
+            int score = 0;
+
             if (player.Equals("red"))
             {
-                score += board.getRedWeightedScore() - board.getBeatScore("black");
+                if (heuristic == 1)
+                {
+                    score = board.getRedWeightedScore() + board.getLevelsScore(player);
+                }
+                else if (heuristic == 2)
+                {
+                    score = board.getRedWeightedScore() + board.getAreasScore(player) + board.getLevelsScore(player);
+                }
+                else
+                {
+                    score = board.getRedWeightedScore() + board.getAreasScore(player) - board.getBeatScore("black") + board.getLevelsScore(player);
+                }
+
                 return score;
             }
             else
             {
-                score += board.getBlackWeightedScore() - board.getBeatScore("red");
+                if (heuristic == 1)
+                {
+                    score = board.getBlackWeightedScore() + board.getLevelsScore(player);
+                }
+                else if (heuristic == 2)
+                {
+                    score = board.getBlackWeightedScore() + board.getAreasScore(player) + board.getLevelsScore(player);
+                }
+                else
+                {
+                    score = board.getBlackWeightedScore() + board.getAreasScore(player) - board.getBeatScore("red") + board.getLevelsScore(player);
+                }
+
                 return score;
             }
         }
