@@ -485,19 +485,9 @@ namespace checkers
 
         }
 
-        public int getFirstAreaScore(string colour)
+        public int getAreasScore(string colour)
         {
-            return firstArea(colour);
-        }
-
-        public int getSecondAreaScore(string colour)
-        {
-            return secondArea(colour);
-        }
-
-        public int getThirdAreaScore(string colour)
-        {
-            return thirdArea(colour);
+            return firstArea(colour) + secondArea(colour) + thirdArea(colour);
         }
 
         private int firstArea(string colour)
