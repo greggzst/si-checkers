@@ -10,6 +10,7 @@ namespace checkers
     {
         private Node decisionTree;
         private Move move;
+        private int numOfMoves;
         private string me;
         private string opponent;
         private bool useMinmax;
@@ -25,7 +26,7 @@ namespace checkers
             {
                 opponent = "red";
             }
-
+            numOfMoves = 0;
             useMinmax = flag;
         }
 
@@ -33,6 +34,7 @@ namespace checkers
         {
             decisionTree = buildTree(board);
             move = pickMove();
+            numOfMoves++;
             return move;
         }
 
