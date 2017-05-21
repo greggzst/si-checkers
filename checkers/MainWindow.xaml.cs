@@ -768,11 +768,11 @@ namespace checkers
             buildBoard();
             turn = "black";
             //minmax ai
-            ai = new CheckersAI("red", true);
-            CheckersAI ai2 = new CheckersAI("black", true);
+            ai = new CheckersAI("red", 5,true);
+            CheckersAI ai2 = new CheckersAI("black", 5, true);
             //alpha beta ai
-            CheckersAI alphabeta1 = new CheckersAI("red", false);
-            CheckersAI alphabeta2 = new CheckersAI("black", false);
+            CheckersAI alphabeta1 = new CheckersAI("red", 5, false);
+            CheckersAI alphabeta2 = new CheckersAI("black", 5, false);
             currentMove = null;
             winner = null;
 
