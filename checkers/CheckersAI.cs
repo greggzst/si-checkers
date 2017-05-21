@@ -14,8 +14,9 @@ namespace checkers
         private string me;
         private string opponent;
         private bool useMinmax;
+        private int treeDepth;
 
-        public CheckersAI(string colour, bool flag)
+        public CheckersAI(string colour, int treeDepth,bool flag)
         {
             this.me = colour;
             if (colour.Equals("red"))
@@ -26,6 +27,7 @@ namespace checkers
             {
                 opponent = "red";
             }
+            this.treeDepth = treeDepth;
             numOfMoves = 0;
             useMinmax = flag;
         }
@@ -56,7 +58,7 @@ namespace checkers
         private Node buildTree(Board board)
         {
             Node root = new Node(board, null, score(board,me));
-            buildTree(root, 5, true);
+            buildTree(root, treeDepth, true);
             return root;
         }
 
@@ -100,9 +102,9 @@ namespace checkers
         private Move pickMove()
         {
             if(useMinmax)
-                minmax(decisionTree, 5, true);
+                minmax(decisionTree, treeDepth, true);
             else
-                alphabeta(decisionTree, 5, int.MinValue, int.MaxValue, true);
+                alphabeta(decisionTree, treeDepth, int.MinValue, int.MaxValue, true);
 
             int max = int.MinValue;
             int index = 0;
