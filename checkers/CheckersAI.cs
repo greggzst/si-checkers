@@ -30,6 +30,11 @@ namespace checkers
             useMinmax = flag;
         }
 
+        public int getNumOfMoves()
+        {
+            return numOfMoves;
+        }
+
         public Move getAiMove(Board board)
         {
             decisionTree = buildTree(board);
@@ -168,7 +173,7 @@ namespace checkers
 
         private int score(Board board,string player)
         {
-            int score = board.getAreasScore(player) + board.getBeatScore(player) + board.getLevelsScore(player);
+            int score = 150 * board.getAreasScore(player) + board.getBeatScore(player) + 300 * board.getLevelsScore(player);
             if (player.Equals("red"))
             {
                 score += board.getRedWeightedScore() - board.getBeatScore("black");
