@@ -80,7 +80,7 @@
                     <ComboBoxItem Content="7" />
                 </ComboBox>
                 <Label Content="Game Summary" Grid.Row="3" Width="245" Height="25" Margin="5,164.6,0,104.8" Grid.ColumnSpan="2"/>
-                <TextBlock x:Name="gameSummary" Grid.Row="3" Width="250" Height="100" VerticalAlignment="Bottom" Margin="5,0,-5,-0.2" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+                <TextBlock x:Name="gameSummary" Grid.Row="3" Width="250" Height="153" VerticalAlignment="Bottom" Margin="5,0,-5.4,-53.2" TextWrapping="Wrap" Grid.ColumnSpan="2" />
             </Grid>
 
         </Grid>
