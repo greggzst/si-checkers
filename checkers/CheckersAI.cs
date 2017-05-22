@@ -54,6 +54,11 @@ namespace checkers
             return useMinmax;
         }
 
+        public int getHeuristic()
+        {
+            return heuristic;
+        }
+
         public Move getAiMove(Board board)
         {
             stopwatch.Start();

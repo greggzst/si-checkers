@@ -309,7 +309,7 @@ namespace checkers
 
             if (winner.Equals(p1.getPlayer()))
             {
-                summary += "Winner: " + p1.getPlayer();
+                summary += "Winner: " + p1.getPlayer() + " heuristic " + p1.getHeuristic() + "\n";
 
                 if (p1.useMinMax())
                 {
@@ -323,7 +323,7 @@ namespace checkers
                 summary += p1.getNumOfMoves() + "moves \n";
                 summary += "Time " + p1.getTime() + "\n";
 
-                summary += "Loser: " + p2.getPlayer();
+                summary += "Loser: " + p2.getPlayer() + " heuristic " + p2.getHeuristic() + "\n";
 
                 if (p2.useMinMax())
                 {
@@ -341,7 +341,7 @@ namespace checkers
             }
             else
             {
-                summary += "Winner: " + p2.getPlayer();
+                summary += "Winner: " + p2.getPlayer() + " heuristic " + p2.getHeuristic() + "\n";
 
                 if (p2.useMinMax())
                 {
@@ -355,7 +355,7 @@ namespace checkers
                 summary += p2.getNumOfMoves() + "moves \n";
                 summary += "Time " + p2.getTime() + "\n";
 
-                summary += "Loser: " + p1.getPlayer();
+                summary += "Loser: " + p1.getPlayer() + " heuristic " + p1.getHeuristic() + "\n";
 
                 if (p1.useMinMax())
                 {
