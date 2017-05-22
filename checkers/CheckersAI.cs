@@ -17,7 +17,8 @@ namespace checkers
         private bool useMinmax;
         private int treeDepth;
         private int heuristic;
-        private long time;
+        private long allTime;
+        private Stopwatch stopwatch;
 
         public CheckersAI(string colour, int treeDepth, int heuristic, bool flag)
         {
@@ -30,8 +31,10 @@ namespace checkers
             {
                 opponent = "red";
             }
+            stopwatch = new Stopwatch();
             this.heuristic = heuristic;
             this.treeDepth = treeDepth;
+            allTime = 0;
             numOfMoves = 0;
             useMinmax = flag;
         }
@@ -43,7 +46,7 @@ namespace checkers
 
         public long getTime()
         {
-            return time;
+            return allTime;
         }
 
         public bool useMinMax()
@@ -53,12 +56,11 @@ namespace checkers
 
         public Move getAiMove(Board board)
         {
-            decisionTree = buildTree(board);
-            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            decisionTree = buildTree(board);
             move = pickMove();
             stopwatch.Stop();
-            time += stopwatch.ElapsedMilliseconds;
+            allTime += stopwatch.ElapsedMilliseconds;
             numOfMoves++;
             return move;
         }
