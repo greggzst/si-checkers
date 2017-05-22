@@ -305,7 +305,7 @@ namespace checkers
 
         private string summary(CheckersAI p1, CheckersAI p2)
         {
-            var summary = "";
+            var summary = "Trees' depth = " + treeDepthBox.Text + "\n";
 
             if (winner.Equals(p1.getPlayer()))
             {
@@ -321,6 +321,7 @@ namespace checkers
                 }
 
                 summary += p1.getNumOfMoves() + "moves \n";
+                summary += "Time " + p1.getTime() + "\n";
 
                 summary += "Loser: " + p2.getPlayer();
 
@@ -334,7 +335,7 @@ namespace checkers
                 }
 
                 summary += p2.getNumOfMoves() + "moves \n";
-
+                summary += "Time " + p2.getTime() + "\n";
 
 
             }
@@ -352,6 +353,7 @@ namespace checkers
                 }
 
                 summary += p2.getNumOfMoves() + "moves \n";
+                summary += "Time " + p2.getTime() + "\n";
 
                 summary += "Loser: " + p1.getPlayer();
 
@@ -365,6 +367,7 @@ namespace checkers
                 }
 
                 summary += p1.getNumOfMoves() + "moves \n";
+                summary += "Time " + p1.getTime() + "\n";
             }
 
             return summary;
