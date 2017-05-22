@@ -534,7 +534,7 @@ namespace checkers
         private int secondArea(string colour)
         {
             int score = 0;
-            int constVal = 75;
+            int constVal = 70;
             for (int i = 1; i < 7; i++)
             {
                 if (colour.Equals("red"))
@@ -575,7 +575,7 @@ namespace checkers
         private int thirdArea(string colour)
         {
             int score = 0;
-            int constVal = -15;
+            int constVal = -45;
             for (int i = 2; i < 6; i++)
             {
                 if (colour.Equals("red"))
@@ -623,7 +623,7 @@ namespace checkers
             int score = 0;
             if(colour.Equals("red"))
             {
-                int value = -10;
+                int value = -30;
                 for(int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(0, col);
@@ -640,7 +640,7 @@ namespace checkers
             }
             else
             {
-                int value = 60;
+                int value = 80;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(0, col);
@@ -664,7 +664,7 @@ namespace checkers
             int score = 0;
             if (colour.Equals("red"))
             {
-                int value = 10;
+                int value = 25;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(2, col);
@@ -681,7 +681,7 @@ namespace checkers
             }
             else
             {
-                int value = 30;
+                int value = 65;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(2, col);
@@ -705,7 +705,7 @@ namespace checkers
             int score = 0;
             if (colour.Equals("red"))
             {
-                int value = 30;
+                int value = 65;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(4, col);
@@ -722,7 +722,7 @@ namespace checkers
             }
             else
             {
-                int value = 10;
+                int value = 25;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(4, col);
@@ -746,7 +746,7 @@ namespace checkers
             int score = 0;
             if (colour.Equals("red"))
             {
-                int value = 60;
+                int value = 80;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(6, col);
@@ -763,7 +763,7 @@ namespace checkers
             }
             else
             {
-                int value = -10;
+                int value = -30;
                 for (int col = 0; col < 8; col++)
                 {
                     FieldState piece = GetPiece(6, col);
