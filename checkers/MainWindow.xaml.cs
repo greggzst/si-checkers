@@ -775,21 +775,23 @@ namespace checkers
             currentMove = null;
             winner = null;
 
+            int treeDepth = int.Parse(treeDepthBox.Text);
+
             if(minmaxVSPlayer.IsChecked == true)
             {
                 if(firstH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 1,true);
+                    ai = new CheckersAI("red", treeDepth, 1,true);
                 }
 
                 if(secondH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 2,true);
+                    ai = new CheckersAI("red", treeDepth, 2,true);
                 }
 
                 if(thirdH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 3,true);
+                    ai = new CheckersAI("red", treeDepth, 3,true);
                 }
             }
 
@@ -799,32 +801,32 @@ namespace checkers
 
                 if (firstH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 1, true);
+                    ai = new CheckersAI("red", treeDepth, 1, true);
                 }
 
                 if (secondH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 2, true);
+                    ai = new CheckersAI("red", treeDepth, 2, true);
                 }
 
                 if (thirdH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 3, true);
+                    ai = new CheckersAI("red", treeDepth, 3, true);
                 }
                 
                 if(firstHeuristic.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 1,true);
+                    ai2 = new CheckersAI("black", treeDepth, 1,true);
                 }
 
                 if (secondHeuristic.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 2, true);
+                    ai2 = new CheckersAI("black", treeDepth, 2, true);
                 }
 
                 if (thirdHeuristic.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 3, true);
+                    ai2 = new CheckersAI("black", treeDepth, 3, true);
                 }
 
                 twoAiPlay(ai2, ai);
@@ -837,32 +839,32 @@ namespace checkers
 
                 if (firstH.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 1,true);
+                    ai2 = new CheckersAI("black", treeDepth, 1,true);
                 }
 
                 if (secondH.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 2, true);
+                    ai2 = new CheckersAI("black", treeDepth, 2, true);
                 }
 
                 if (thirdH.IsChecked == true)
                 {
-                    ai2 = new CheckersAI("black", 5, 1, true);
+                    ai2 = new CheckersAI("black", treeDepth, 1, true);
                 }
 
                 if (firstHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 1,false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 1,false);
                 }
 
                 if (secondHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 2, false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 2, false);
                 }
 
                 if (thirdHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 3, false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 3, false);
                 }
 
                 twoAiPlay(ai2, alphabeta1);
@@ -872,17 +874,17 @@ namespace checkers
             {
                 if (firstH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 1,false);
+                    ai = new CheckersAI("red", treeDepth, 1,false);
                 }
 
                 if (secondH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 2, false);
+                    ai = new CheckersAI("red", treeDepth, 2, false);
                 }
 
                 if (thirdH.IsChecked == true)
                 {
-                    ai = new CheckersAI("red", 5, 3, false);
+                    ai = new CheckersAI("red", treeDepth, 3, false);
                 }
 
             }
@@ -894,32 +896,32 @@ namespace checkers
 
                 if (firstH.IsChecked == true)
                 {
-                    alphabeta2 = new CheckersAI("black", 5, 1, false);
+                    alphabeta2 = new CheckersAI("black", treeDepth, 1, false);
                 }
 
                 if (secondH.IsChecked == true)
                 {
-                    alphabeta2 = new CheckersAI("black", 5, 2, false);
+                    alphabeta2 = new CheckersAI("black", treeDepth, 2, false);
                 }
 
                 if (thirdH.IsChecked == true)
                 {
-                    alphabeta2 = new CheckersAI("black", 5, 1, false);
+                    alphabeta2 = new CheckersAI("black", treeDepth, 1, false);
                 }
 
                 if (firstHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 1, false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 1, false);
                 }
 
                 if (secondHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 2, false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 2, false);
                 }
 
                 if (thirdHeuristic.IsChecked == true)
                 {
-                    alphabeta1 = new CheckersAI("red", 5, 3, false);
+                    alphabeta1 = new CheckersAI("red", treeDepth, 3, false);
                 }
 
 
