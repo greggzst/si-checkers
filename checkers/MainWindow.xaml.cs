@@ -690,7 +690,7 @@ namespace checkers
 
             if(winner != null)
             {
-                this.Title = winner + "is the winner!";
+                this.Title = winner + " is the winner!";
                 MessageBoxResult result = MessageBox.Show(winner + " is the winner!", "Winner", MessageBoxButton.OK);
                 turn = "";
                 if (result == MessageBoxResult.OK)

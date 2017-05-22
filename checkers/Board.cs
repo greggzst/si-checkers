@@ -370,7 +370,7 @@ namespace checkers
                 for(int col = 0; col < 8; col++)
                 {
                     if (getJumpsFromLocation(colour, row, col).Count > 0)
-                        score += 200;
+                        score += 120;
                 }
             }
 

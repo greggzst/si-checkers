@@ -72,8 +72,7 @@
                 <RadioButton x:Name="thirdHeuristic" Grid.Row="2" Grid.Column="1" Content="Third" GroupName="secondHeuristic" Margin="10,0" />
                 <Label Content="Tree Depth" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="25" Margin="5,9.6,-5.4,259.8" />
                 <ComboBox x:Name="treeDepthBox" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="25" Width="100" Margin="0,39.6,-0.4,229.8" AllowDrop="True">
-                    <ComboBoxItem Content="1" IsSelected="True" />
-                    <ComboBoxItem Content="2" />
+                    <ComboBoxItem Content="2" IsSelected="True" />
                     <ComboBoxItem Content="3" />
                     <ComboBoxItem Content="4" />
                     <ComboBoxItem Content="5" />

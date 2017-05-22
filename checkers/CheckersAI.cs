@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace checkers
         private bool useMinmax;
         private int treeDepth;
         private int heuristic;
+        private long time;
 
         public CheckersAI(string colour, int treeDepth, int heuristic, bool flag)
         {
@@ -39,6 +41,11 @@ namespace checkers
             return numOfMoves;
         }
 
+        public long getTime()
+        {
+            return time;
+        }
+
         public bool useMinMax()
         {
             return useMinmax;
@@ -47,7 +54,11 @@ namespace checkers
         public Move getAiMove(Board board)
         {
             decisionTree = buildTree(board);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             move = pickMove();
+            stopwatch.Stop();
+            time += stopwatch.ElapsedMilliseconds;
             numOfMoves++;
             return move;
         }
@@ -188,15 +199,15 @@ namespace checkers
             {
                 if (heuristic == 1)
                 {
-                    score = board.getRedWeightedScore() + board.getLevelsScore(player);
+                    score = board.getRedWeightedScore() - board.getBlackWeightedScore() + board.getAreasScore(player);
                 }
                 else if (heuristic == 2)
                 {
-                    score = board.getRedWeightedScore() + board.getAreasScore(player) + board.getLevelsScore(player);
+                    score = 2 * board.getRedWeightedScore() - board.getBlackWeightedScore() + 2 * board.getAreasScore(player) + board.getBeatScore(player);
                 }
                 else
                 {
-                    score = board.getRedWeightedScore() + board.getAreasScore(player) - board.getBeatScore("black") + board.getLevelsScore(player);
+                    score = 3 * board.getRedWeightedScore() - board.getBlackWeightedScore() + board.getAreasScore(player) + board.getBeatScore(player) - board.getBeatScore("black") + 2 * board.getLevelsScore(player);
                 }
 
                 return score;
@@ -205,15 +216,15 @@ namespace checkers
             {
                 if (heuristic == 1)
                 {
-                    score = board.getBlackWeightedScore() + board.getLevelsScore(player);
+                    score = board.getBlackWeightedScore() - board.getRedWeightedScore() + board.getAreasScore(player);
                 }
                 else if (heuristic == 2)
                 {
-                    score = board.getBlackWeightedScore() + board.getAreasScore(player) + board.getLevelsScore(player);
+                    score = 2 * board.getBlackWeightedScore() - board.getRedWeightedScore() + 2 * board.getAreasScore(player) + board.getBeatScore(player);
                 }
                 else
                 {
-                    score = board.getBlackWeightedScore() + board.getAreasScore(player) - board.getBeatScore("red") + board.getLevelsScore(player);
+                    score = 3 * board.getBlackWeightedScore() - board.getRedWeightedScore() + board.getAreasScore(player) + board.getBeatScore(player) - board.getBeatScore("red") + 2 * board.getLevelsScore(player);
                 }
 
                 return score;
